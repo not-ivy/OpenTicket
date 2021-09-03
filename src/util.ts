@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+// eslint-disable-next-line no-shadow
 enum ConsoleColors {
   FgBlack = '\x1b[30m',
   FgRed = '\x1b[31m',
@@ -16,7 +18,35 @@ enum ConsoleColors {
   BgBlue = '\x1b[44m',
   BgMagenta = '\x1b[45m',
   BgCyan = '\x1b[46m',
-  BgWhite = '\x1b[47m'
+  BgWhite = '\x1b[47m',
+  Reset = '\x1b[0m',
+  Bold = '\u001B[1m',
 }
 
-export default ConsoleColors;
+function success(message: string) {
+  console.log(`[ ${ConsoleColors.FgGreen}OK${ConsoleColors.Reset} ]${message}`);
+  return undefined;
+}
+
+function info(message: string) {
+  console.log(`[ ${ConsoleColors.FgYellow}INFO${ConsoleColors.Reset} ]${message}`);
+  return undefined;
+}
+
+function error(message: string) {
+  console.log(`[ ${ConsoleColors.FgRed}FAILED${ConsoleColors.Reset} ]${message}`);
+  return undefined;
+}
+
+function fatal(message: string) {
+  console.log(`[ ${ConsoleColors.BgRed}${ConsoleColors.Bold}${ConsoleColors.FgBlack}FATAL${ConsoleColors.Reset} ]${message}`);
+  return undefined;
+}
+
+export {
+  ConsoleColors,
+  success,
+  info,
+  error,
+  fatal,
+};

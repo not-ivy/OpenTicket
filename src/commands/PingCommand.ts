@@ -1,3 +1,5 @@
-export default function execute(args: Array<string>) {
+const config = {
+  name: 'ping',
+};
 
-}
+export default config;
