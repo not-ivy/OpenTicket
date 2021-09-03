@@ -46,19 +46,4 @@ bot.once('ready', async () => {
 
 });
 
-bot.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) return undefined;
-  switch (interaction.commandName) {
-    case 'ping':
-      await interaction.reply(`${Math.floor(Math.random() * 1000)}ms.`);
-      break;
-    case 'createTicket':
-      await interaction.reply(`${Math.floor(Math.random() * 1000)}ms.`);
-      break;
-    default:
-      return undefined;
-  }
-  return undefined;
-});
-
 bot.login(config.token).then(success('Bot logged in. Welcome to OpenTicket!'));
