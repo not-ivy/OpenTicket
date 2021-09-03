@@ -24,22 +24,22 @@ enum ConsoleColors {
 }
 
 function success(message: string) {
-  console.log(`[ ${ConsoleColors.FgGreen}OK${ConsoleColors.Reset} ]${message}`);
+  console.log(`   [ ${ConsoleColors.FgGreen}OK${ConsoleColors.Reset} ]      ${message}`);
   return undefined;
 }
 
 function info(message: string) {
-  console.log(`[ ${ConsoleColors.FgYellow}INFO${ConsoleColors.Reset} ]${message}`);
+  console.log(`   [ ${ConsoleColors.FgYellow}INFO${ConsoleColors.Reset} ]    ${message}`);
   return undefined;
 }
 
 function error(message: string) {
-  console.log(`[ ${ConsoleColors.FgRed}FAILED${ConsoleColors.Reset} ]${message}`);
+  console.log(`   [ ${ConsoleColors.FgRed}FAILED${ConsoleColors.Reset} ]  ${message}`);
   return undefined;
 }
 
 function fatal(message: string) {
-  console.log(`[ ${ConsoleColors.BgRed}${ConsoleColors.Bold}${ConsoleColors.FgBlack}FATAL${ConsoleColors.Reset} ]${message}`);
+  console.log(`   [ ${ConsoleColors.BgRed}${ConsoleColors.Bold}${ConsoleColors.FgBlack}FATAL${ConsoleColors.Reset} ]   ${message}`);
   return undefined;
 }
 

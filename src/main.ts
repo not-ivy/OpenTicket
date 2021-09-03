@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { Client, Intents } from 'discord.js';
 import * as fs from 'fs';
 import {
@@ -10,29 +11,30 @@ import {
 // What a mess
 interface InterfaceConfig {
   token: string,
-  clientId: number,
-  guildId: number
+  prefix: string,
+  disallowInThreads: boolean,
+  disallowBotMessages: boolean,
 }
 const config: InterfaceConfig = require('../config.json');
 
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
 const commands = new Map<string, any>();
 
-info('Registering commands...');
 /**
  * Credit to https://github.com/humboldt123
  * @author humboldt123
  */
-// eslint-disable-next-line consistent-return
+info('Registering commands...');
 fs.readdir('./dist/commands', (err, files) => {
   if (err) return fatal(err.message);
   const tsFiles = files.filter((file) => file.split('.').pop() === 'js');
   if (tsFiles.length === 0) return fatal('The commands folder is empty! Add some commands!');
-  tsFiles.forEach((file) => {
+  tsFiles.forEach((file, index) => {
     // eslint-disable-next-line global-require,import/no-dynamic-require
-    const pull = require(`./commands/${file}`); // TODO: is it possible to use import?
-    info(`Verifying ${file}...`);
+    const pull = require(`./commands/${file}`);
+    info(`Verifying ${file}... (${index + 1}/${tsFiles.length + 1})`);
     if (pull.config) {
+      if (commands.has(pull.config.name)) error('Another command with the same name exists! Overwriting...');
       commands.set(pull.config.name, pull);
       success(`Command ${file} verified!`);
     } else {
@@ -40,10 +42,25 @@ fs.readdir('./dist/commands', (err, files) => {
     }
   });
   success(`${commands.size} commands fetched!`);
+  info('Connecting to discord...');
 });
 
 bot.once('ready', async () => {
-
+  success('Connected to discord. Welcome to OpenTicket!');
 });
 
-bot.login(config.token).then(success('Bot logged in. Welcome to OpenTicket!'));
+bot.on('message', async (message) => {
+  const commandArray = message.content.split(' ');
+  const command = commandArray[0].toLowerCase();
+  const args = commandArray.slice(1);
+
+  if (config.disallowBotMessages && message.author.bot) return undefined;
+  if (config.disallowInThreads && message.channel.isThread) return undefined;
+
+  if (message.content.startsWith(config.prefix)) {
+    const commandFile = commands.get(command.slice(config.prefix.length));
+    if (commandFile) commandFile.run(bot, message, args);
+  }
+});
+
+bot.login(config.token).catch(() => fatal('Failed to connect to discord!'));

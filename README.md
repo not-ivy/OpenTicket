@@ -6,7 +6,8 @@ Bot Development in heavy development.....
 Create a config.json file, containing your token and desired prefix:
 ```json
 {
-  "token": ""
+  "token": "",
+  "prefix": "'"
 }
 ```
 Then run:
