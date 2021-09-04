@@ -23,6 +23,19 @@ enum ConsoleColors {
   Bold = '\u001B[1m',
 }
 
+enum BotColors {
+  Red = '#F72585',
+  Pink = '#E0ACD5',
+  Blue = '#3993DD',
+  White = '#F4EBE8',
+  Green = '#29E7CD',
+  Brown = '#6A3E37',
+}
+
+function intColor(botColor: BotColors) {
+  return parseInt(botColor.replace('#', ''), 16);
+}
+
 function success(message: string) {
   console.log(`   [ ${ConsoleColors.FgGreen}OK${ConsoleColors.Reset} ]      ${message}`);
   return undefined;
@@ -45,6 +58,8 @@ function fatal(message: string) {
 
 export {
   ConsoleColors,
+  BotColors,
+  intColor,
   success,
   info,
   error,
