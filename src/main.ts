@@ -6,15 +6,9 @@ import {
   info,
   success,
   fatal,
+  InterfaceConfig,
 } from './util';
 
-// What a mess
-interface InterfaceConfig {
-  token: string,
-  prefix: string,
-  disallowInThreads: boolean,
-  disallowBotMessages: boolean,
-}
 const config: InterfaceConfig = require('../config.json');
 
 const bot = new Client({

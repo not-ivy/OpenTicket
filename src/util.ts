@@ -56,6 +56,18 @@ function fatal(message: string) {
   return undefined;
 }
 
+interface InterfaceConfig {
+  token: string,
+  prefix: string,
+  disallowInThreads: boolean,
+  disallowBotMessages: boolean,
+}
+
+interface InterfaceTicket {
+  title: string,
+  description: string
+}
+
 export {
   ConsoleColors,
   BotColors,
@@ -64,4 +76,6 @@ export {
   info,
   error,
   fatal,
+  InterfaceConfig,
+  InterfaceTicket,
 };
