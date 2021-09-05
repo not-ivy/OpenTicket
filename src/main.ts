@@ -6,7 +6,8 @@ import {
   info,
   success,
   fatal,
-  InterfaceConfig, unverified,
+  InterfaceConfig,
+  unverified,
 } from './util';
 
 const config: InterfaceConfig = require('../config.json');
