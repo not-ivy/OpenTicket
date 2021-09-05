@@ -1,5 +1,4 @@
 # OpenTicket
-Bot Development in development.....
 
 ### To run the bot:
 Create a config.json file, containing your token and desired prefix:
