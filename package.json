@@ -1,7 +1,7 @@
 {
   "name": "ticket",
   "version": "1.0.0",
-  "main": "dist/main.js",
+  "main": "./dist/main.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",

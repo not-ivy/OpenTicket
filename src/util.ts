@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 // eslint-disable-next-line no-shadow
+import { MessageEmbed } from 'discord.js';
+
 enum ConsoleColors {
   FgBlack = '\x1b[30m',
   FgRed = '\x1b[31m',
   FgGreen = '\x1b[32m',
   FgYellow = '\x1b[33m',
   FgBlue = '\x1b[34m',
-  FgMagenta = '1\x1b[35m',
+  FgMagenta = '\x1b[35m',
   FgCyan = '\x1b[36m',
   FgWhite = '\x1b[37m',
 
@@ -41,9 +43,27 @@ function success(message: string) {
   return undefined;
 }
 
+function embedSuccess(title: string, description: string) {
+  return new MessageEmbed()
+    .setTitle(title)
+    .setDescription(description)
+    .setFooter('OpenTicket', 'https://cdn.discordapp.com/avatars/883190707198767194/659671effd31aac4a27370d9e5637749.webp')
+    .setTimestamp()
+    .setColor(intColor(BotColors.Green));
+}
+
 function info(message: string) {
   console.log(`   [ ${ConsoleColors.FgYellow}INFO${ConsoleColors.Reset} ]    ${message}`);
   return undefined;
+}
+
+function embedInfo(title: string, description: string) {
+  return new MessageEmbed()
+    .setTitle(title)
+    .setDescription(description)
+    .setFooter('OpenTicket', 'https://cdn.discordapp.com/avatars/883190707198767194/659671effd31aac4a27370d9e5637749.webp')
+    .setTimestamp()
+    .setColor(intColor(BotColors.Blue));
 }
 
 function error(message: string) {
@@ -51,9 +71,23 @@ function error(message: string) {
   return undefined;
 }
 
+function embedError(title: string, description: string, stacktrace: any) {
+  return new MessageEmbed()
+    .setTitle(title)
+    .setDescription(description)
+    .addField('Stacktrace:', <string>stacktrace.stack)
+    .setFooter('OpenTicket', 'https://cdn.discordapp.com/avatars/883190707198767194/659671effd31aac4a27370d9e5637749.webp')
+    .setTimestamp()
+    .setColor(intColor(BotColors.Red));
+}
+
 function fatal(message: string) {
   console.log(`   [ ${ConsoleColors.BgRed}${ConsoleColors.Bold}${ConsoleColors.FgBlack}FATAL${ConsoleColors.Reset} ]   ${message}`);
   return undefined;
+}
+
+function unverified(message: string) {
+  console.log(`   [ ${ConsoleColors.FgMagenta}UNVERIFIED${ConsoleColors.Reset} ]   ${message}`);
 }
 
 interface InterfaceConfig {
@@ -61,6 +95,7 @@ interface InterfaceConfig {
   prefix: string,
   disallowInThreads: boolean,
   disallowBotMessages: boolean,
+  notifyRoles: string[]
 }
 
 interface InterfaceTicket {
@@ -68,14 +103,23 @@ interface InterfaceTicket {
   description: string
 }
 
+interface InterfaceDatabase {
+  ticketCount: number,
+}
+
 export {
   ConsoleColors,
   BotColors,
   intColor,
   success,
+  embedSuccess,
   info,
+  embedInfo,
   error,
+  embedError,
   fatal,
+  unverified,
   InterfaceConfig,
   InterfaceTicket,
+  InterfaceDatabase,
 };
