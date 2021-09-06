@@ -29,9 +29,7 @@ module.exports = {
           });
         });
     } else if (interaction.customId === 'Close Ticket') {
-      interaction.channel?.messages.fetch().then(async (message) => {
-        // mess
-      });
+      interaction.channel?.delete();
     }
   },
 };
