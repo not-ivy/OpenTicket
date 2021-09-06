@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn
+      - name: Build OpenTicket
+        run: yarn build
+      - name: Remove dist
+        run: yarn clean
+      - name: Run Linter
+        run: ./node_modules/.bin/eslint .
