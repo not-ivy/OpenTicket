@@ -1,8 +1,8 @@
 import { Interaction, MessageActionRow, MessageButton } from 'discord.js';
+import * as fs from "fs";
 import { getDatabase, increaseTicketCounter } from '../database';
 import { embedSuccess } from '../util';
 import { config } from '../main';
-import * as fs from "fs";
 
 module.exports = {
   name: 'interactionCreate',
