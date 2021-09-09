@@ -2,6 +2,7 @@ import { Interaction, MessageActionRow, MessageButton } from 'discord.js';
 import { getDatabase, increaseTicketCounter } from '../database';
 import { embedSuccess } from '../util';
 import { config } from '../main';
+import * as fs from "fs";
 
 module.exports = {
   name: 'interactionCreate',
@@ -29,6 +30,11 @@ module.exports = {
           });
         });
     } else if (interaction.customId === 'Close Ticket') {
+      const messageArray:string[] = [];
+      interaction.channel?.messages.cache.forEach((message) => {
+        messageArray.push(`[${message.createdAt.toUTCString()}]<${message.author.username}#${message.author.discriminator}> ${message.content}`);
+      });
+      fs.writeFileSync(`${interaction.channel?.id}.txt`, messageArray.join('\n'));
       interaction.channel?.delete();
     }
   },
